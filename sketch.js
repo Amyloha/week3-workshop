@@ -1,11 +1,16 @@
+let beat, analyzer;
+
+// Load sound file before canvas loads so it is ready
+function preload() {
+  beat = loadSound('beat.mp3');
+}
+
 function setup() {
 let myCanvas = createCanvas(600, 400);
 myCanvas.parent('myContainer');
-
-let beat;
-// Load sound file before canvas loads so it is ready
-function preload() {
-beat = loadSound('beat.mp3');
+  analyzer = new p5.Amplitude();
+analyzer.setInput(beat);
+}
 
 function mousePressed() {
 if (beat.isPlaying()) {
@@ -13,15 +18,6 @@ beat.stop();
 } else {
 beat.loop();
 }
-}
-
-Let beat, analyzer;
-
-function setup() {
-let myCanvas = createCanvas(600, 400);
-myCanvas.parent('myContainer');
-analyzer = new p5.Amplitude();
-analyzer.setInput(beat);
 }
 
 function draw() {
@@ -38,3 +34,4 @@ ellipse(width / 2, height / 2, 10 + rms * 200, 10 + rms * 200);
 erase();
 ellipse(width / 2, height / 2, 220, 220);
 noErase();
+}
